@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
       - id: version
-        uses: Zorro909/skywright/.github/actions/publish-training-project@906b84d17a20bf114db2cf6601fff30be08e974d
+        uses: Zorro909/skywright/.github/actions/publish-training-project@1f530785e14e38c3f85fc6c0384f40342057551a
         with:
           definition: skywright-project.json
           registry-username: ${{ github.actor }}
