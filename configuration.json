@@ -1,0 +1,44 @@
+{
+  "contractVersion": 1,
+  "skywrightSchema": {
+    "version": "0.4.0",
+    "digest": "sha256:5e1b82b1cf422f21896d3b6aee141f82d4fdd07a07fb0ba44fd06ce505e404fc"
+  },
+  "projectSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "object",
+        "properties": {
+          "steps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          },
+          "delaySeconds": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "steps",
+          "delaySeconds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "project"
+    ]
+  },
+  "defaults": {
+    "project": {
+      "steps": 1200,
+      "delaySeconds": 0.1
+    }
+  },
+  "defaultsCompletionWitness": {},
+  "references": {}
+}

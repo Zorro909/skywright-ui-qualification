@@ -1,0 +1,34 @@
+name: Build qualification ROCm profile
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  profile:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: Zorro909/skywright
+          ref: 906b84d17a20bf114db2cf6601fff30be08e974d
+      - name: Build the exact qualification profile
+        run: |
+          docker build --platform linux/amd64 \
+            --file environment-profiles/rocm/Containerfile \
+            --build-arg SKYWRIGHT_SOURCE_REVISION=906b84d17a20bf114db2cf6601fff30be08e974d \
+            --build-arg SKYWRIGHT_SDK_VERSION=0.1.0 \
+            --tag ghcr.io/zorro909/skywright-ui-qualification-profile:906b84d17a20bf114db2cf6601fff30be08e974d sdk
+          docker run --rm --network=none \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:906b84d17a20bf114db2cf6601fff30be08e974d \
+            skywright-runtime --help
+      - name: Publish the qualification profile and record its digest
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GHCR_USER" --password-stdin
+          docker push ghcr.io/zorro909/skywright-ui-qualification-profile:906b84d17a20bf114db2cf6601fff30be08e974d
+          docker image inspect \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:906b84d17a20bf114db2cf6601fff30be08e974d \
+            --format '{{json .RepoDigests}}' >> "$GITHUB_STEP_SUMMARY"

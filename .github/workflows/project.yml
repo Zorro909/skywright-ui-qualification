@@ -1,0 +1,25 @@
+name: Publish qualification project
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  project:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - id: version
+        uses: Zorro909/skywright/.github/actions/publish-training-project@906b84d17a20bf114db2cf6601fff30be08e974d
+        with:
+          definition: skywright-project.json
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Record accepted version identity
+        env:
+          VERSION_DIGEST: ${{ steps.version.outputs.artifact-digest }}
+          VERSION_LABEL: ${{ steps.version.outputs.version-label }}
+        run: |
+          printf 'Version: %s\nManifest: %s\n' "$VERSION_LABEL" "$VERSION_DIGEST" >> "$GITHUB_STEP_SUMMARY"
