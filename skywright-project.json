@@ -1,6 +1,6 @@
 {
   "definitionVersion": 1,
-  "projectIdentity": "skywright-ui-qualification",
+  "projectIdentity": "e23aac30-f005-4c5b-8ea1-be6770f8c54e",
   "registryRepository": "ghcr.io/zorro909/skywright-ui-qualification",
   "configurationContract": "configuration.json",
   "metricContract": "metrics.json",
