@@ -3,6 +3,8 @@
 import json
 import time
 
+from streaming.base.format.mds.reader import MDSReader
+
 import torch
 
 
@@ -47,4 +49,4 @@ if __name__ == '__main__':
     import inspect
     inspect.signature(train).bind(object())
     assert torch.version.hip, 'The published project must use the ROCm profile'
-    print('Fixed entry point and ROCm imports passed')
+    print(f'{MDSReader.__name__}, fixed entry point and ROCm imports passed')

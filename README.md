@@ -12,3 +12,11 @@ After that workflow returns its digest, commit `skywright-project.json` with pro
 GitHub may initially create the packages as private. An owner must make these two synthetic qualification packages public before the local backend can resolve and pull them without private registry credentials.
 
 The local qualification uses real Dataset publications, actual GPU training, exact checkpoint state and cooperative cancellation through Skywright. CI checks imports and contracts without requiring a GPU. Nothing has been published yet.
+
+
+The project lock includes the optional Dataset reader stack exported from Skywright's
+locked SDK dependencies at revision `02fc539d918f739ea35850e4ffdbccc645a3ec13`.
+MosaicML Streaming uses source revision `d99bf9c7cdf2dd4ed62a4960ed35270b93337a5f`
+through a SHA256-pinned source archive. PyTorch and torchvision remain supplied by
+the pinned ROCm profile. The project smoke command imports the MDS reader before
+publication, so missing Dataset dependencies fail the build.
