@@ -1,0 +1,18 @@
+{
+  "definitionVersion": 1,
+  "projectIdentity": "skywright-ui-qualification",
+  "registryRepository": "ghcr.io/zorro909/skywright-ui-qualification",
+  "configurationContract": "configuration.json",
+  "metricContract": "metrics.json",
+  "dependencyLock": "requirements.lock",
+  "smokeCommand": [
+    "python",
+    "-m",
+    "skywright_project"
+  ],
+  "backends": {
+    "rocm": {
+      "environmentProfile": "ghcr.io/zorro909/skywright-ui-qualification-profile@sha256:e884b9a7cf6c06926cad50f97f7983dfea1e5ef040dd7dae9a686c45c068681a"
+    }
+  }
+}
