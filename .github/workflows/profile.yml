@@ -11,16 +11,16 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: Zorro909/skywright
-          ref: 9b0957e09eb884122f01d4246dacbb8cb961dc88
+          ref: f4bb6616d5757716370ba1f26fde4eba80416e15
       - name: Build the exact qualification profile
         run: |
           docker build --platform linux/amd64 \
             --file environment-profiles/rocm/Containerfile \
-            --build-arg SKYWRIGHT_SOURCE_REVISION=9b0957e09eb884122f01d4246dacbb8cb961dc88 \
+            --build-arg SKYWRIGHT_SOURCE_REVISION=f4bb6616d5757716370ba1f26fde4eba80416e15 \
             --build-arg SKYWRIGHT_SDK_VERSION=0.1.0 \
-            --tag ghcr.io/zorro909/skywright-ui-qualification-profile:9b0957e09eb884122f01d4246dacbb8cb961dc88 sdk
+            --tag ghcr.io/zorro909/skywright-ui-qualification-profile:f4bb6616d5757716370ba1f26fde4eba80416e15 sdk
           docker run --rm --network=none \
-            ghcr.io/zorro909/skywright-ui-qualification-profile:9b0957e09eb884122f01d4246dacbb8cb961dc88 \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:f4bb6616d5757716370ba1f26fde4eba80416e15 \
             skywright-runtime --help
       - name: Publish the qualification profile and record its digest
         env:
@@ -28,7 +28,7 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GHCR_USER" --password-stdin
-          docker push ghcr.io/zorro909/skywright-ui-qualification-profile:9b0957e09eb884122f01d4246dacbb8cb961dc88
+          docker push ghcr.io/zorro909/skywright-ui-qualification-profile:f4bb6616d5757716370ba1f26fde4eba80416e15
           docker image inspect \
-            ghcr.io/zorro909/skywright-ui-qualification-profile:9b0957e09eb884122f01d4246dacbb8cb961dc88 \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:f4bb6616d5757716370ba1f26fde4eba80416e15 \
             --format '{{json .RepoDigests}}' >> "$GITHUB_STEP_SUMMARY"
