@@ -21,8 +21,8 @@ def train(context):
     print(json.dumps({'event': 'gpu-started', 'device': device.name,
                       'memoryBytes': device.total_memory, 'step': context.step,
                       'hip': torch.version.hip}), flush=True)
-    total = context.configuration['project']['steps']
-    delay = context.configuration['project']['delaySeconds']
+    total = int(context.configuration['project']['steps'])
+    delay = float(context.configuration['project']['delaySeconds'])
     while context.step < total:
         batches = iter(context.dataset.batches(context.dataset_cursor))
         try:
