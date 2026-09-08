@@ -1,0 +1,28 @@
+name: Publish private CIFAR-10 qualification project
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  project:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - id: version
+        uses: Zorro909/skywright/.github/actions/publish-training-project@9b0957e09eb884122f01d4246dacbb8cb961dc88
+        with:
+          definition: cifar10/skywright-project.json
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify private visibility and record immutable version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_DIGEST: ${{ steps.version.outputs.artifact-digest }}
+          VERSION_LABEL: ${{ steps.version.outputs.version-label }}
+        run: |
+          visibility="$(gh api users/Zorro909/packages/container/skywright-cifar10-qualification --jq .visibility)"
+          test "$visibility" = private
+          printf 'Visibility: %s\nVersion: %s\nManifest: %s\n' "$visibility" "$VERSION_LABEL" "$VERSION_DIGEST" >> "$GITHUB_STEP_SUMMARY"
