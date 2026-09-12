@@ -11,16 +11,16 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: Zorro909/skywright
-          ref: fac63ef61194af99fe8aa8de40a9b0b5839d36a8
+          ref: b403733ff122fcd389d0ca0e1cff53049a25fc75
       - name: Build the exact qualification profile
         run: |
           docker build --platform linux/amd64 \
             --file environment-profiles/cuda/Containerfile \
-            --build-arg SKYWRIGHT_SOURCE_REVISION=fac63ef61194af99fe8aa8de40a9b0b5839d36a8 \
+            --build-arg SKYWRIGHT_SOURCE_REVISION=b403733ff122fcd389d0ca0e1cff53049a25fc75 \
             --build-arg SKYWRIGHT_SDK_VERSION=0.1.0 \
-            --tag ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-fac63ef61194af99fe8aa8de40a9b0b5839d36a8 sdk
+            --tag ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-b403733ff122fcd389d0ca0e1cff53049a25fc75 sdk
           docker run --rm --network=none \
-            ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-fac63ef61194af99fe8aa8de40a9b0b5839d36a8 \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-b403733ff122fcd389d0ca0e1cff53049a25fc75 \
             skywright-runtime --help
       - name: Publish the qualification profile and record its digest
         env:
@@ -28,7 +28,7 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GHCR_USER" --password-stdin
-          docker push ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-fac63ef61194af99fe8aa8de40a9b0b5839d36a8
+          docker push ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-b403733ff122fcd389d0ca0e1cff53049a25fc75
           docker image inspect \
-            ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-fac63ef61194af99fe8aa8de40a9b0b5839d36a8 \
+            ghcr.io/zorro909/skywright-ui-qualification-profile:cuda-b403733ff122fcd389d0ca0e1cff53049a25fc75 \
             --format '{{json .RepoDigests}}' >> "$GITHUB_STEP_SUMMARY"
