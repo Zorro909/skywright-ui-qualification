@@ -1,7 +1,7 @@
 {
   "definitionVersion": 1,
-  "projectIdentity": "35a633f3-8342-4061-a8df-36b1af07d438",
-  "registryRepository": "ghcr.io/zorro909/skywright-cifar10-qualification",
+  "projectIdentity": "6b4c790f-d8cd-4bdf-898c-deaf074861e9",
+  "registryRepository": "ghcr.io/zorro909/skywright-cifar10-private-qualification",
   "configurationContract": "configuration.json",
   "metricContract": "metrics.json",
   "dependencyLock": "requirements.lock",
@@ -12,7 +12,10 @@
   ],
   "backends": {
     "rocm": {
-      "environmentProfile": "ghcr.io/zorro909/skywright-ui-qualification-profile@sha256:b5a03cc56eda4cbfc8c6673ca1f3fe01c077613be01511783b3065b3843b6bf8"
+      "environmentProfile": "ghcr.io/zorro909/skywright-ui-qualification-profile@sha256:3dff7998855d200717bec9b6d1257a936b6c30d7c9423f99df39b09fe1954ab6"
+    },
+    "cuda": {
+      "environmentProfile": "ghcr.io/zorro909/skywright-ui-qualification-profile@sha256:1d1dc21d7559d1cfe9b2a3fe51954e4e3144ee1bce9839f30f28aabb8bbf983e"
     }
   }
 }

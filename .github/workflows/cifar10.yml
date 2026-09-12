@@ -1,4 +1,4 @@
-name: Publish private CIFAR-10 qualification project
+name: Publish private CIFAR-10 CUDA qualification project
 on:
   workflow_dispatch:
 permissions:
@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
       - id: version
-        uses: Zorro909/skywright/.github/actions/publish-training-project@9b0957e09eb884122f01d4246dacbb8cb961dc88
+        uses: Zorro909/skywright/.github/actions/publish-training-project@fac63ef61194af99fe8aa8de40a9b0b5839d36a8
         with:
           definition: cifar10/skywright-project.json
           registry-username: ${{ github.actor }}
@@ -23,6 +23,6 @@ jobs:
           VERSION_DIGEST: ${{ steps.version.outputs.artifact-digest }}
           VERSION_LABEL: ${{ steps.version.outputs.version-label }}
         run: |
-          visibility="$(gh api users/Zorro909/packages/container/skywright-cifar10-qualification --jq .visibility)"
+          visibility="$(gh api users/Zorro909/packages/container/skywright-cifar10-private-qualification --jq .visibility)"
           test "$visibility" = private
           printf 'Visibility: %s\nVersion: %s\nManifest: %s\n' "$visibility" "$VERSION_LABEL" "$VERSION_DIGEST" >> "$GITHUB_STEP_SUMMARY"
